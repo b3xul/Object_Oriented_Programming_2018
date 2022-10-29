@@ -1,0 +1,4 @@
+#Student identification information
+ID=228279
+FirstName=MIGLIORE
+LastName=ELIA

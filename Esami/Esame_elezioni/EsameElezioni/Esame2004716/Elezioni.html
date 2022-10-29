@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>02CBI - Programmazione ad Oggetti</title>
+</head>
+<body>
+<h1 style="text-align: center;">Elezioni<br>
+</h1>
+Sviluppare l&#8217;applicazione che consente di gestire le elezioni di un
+collegio elettorale.<br>
+L'applicazione deve gestire le varie fasi delle elezioni, dalla
+definizione delle liste alla pubblicazione dei risultati.<br>
+Tutte le classi devono essere nel package "elezioni".<br>
+<hr style="width: 100%; height: 2px;">
+<h2>R1 - Elettorato attivo
+</h2>
+Il sistema agisce tramite la classe <span style="font-weight: bold;">Elezione</span>.
+<br>
+La prima fase delle elezioni consiste nella definizione dell'elettorato
+attivo. Gli elettori attivi sono coloro che possono esprimere un voto. <br>
+Gli elettori sono rappresentati dall'interfaccia <span
+ style="font-weight: bold;">Cittadino </span>che offre i metodi, <span
+ style="font-weight: bold;">getNome()</span>, <span
+ style="font-weight: bold;">getCognome()</span> e <span
+ style="font-weight: bold;">haVotato()</span>; quest'ultimo metodo
+restituisce un valore booleano ed in questa fase &egrave; falso.<br>
+Per aggiungere un elettore agli elenchi si usa il metodo <span
+ style="font-weight: bold;">aggiungiElettore() </span>che riceve come
+parametri nome e cognome dell'elettore e restituisce un oggetto che
+implementa l'interfaccia Cittadino. Si assuma che non vengano mai
+inseriti duplicati (omonimi).<br>
+L'elenco degli elettori registrati &egrave; disponibile tramite il
+metodo <span style="font-weight: bold;">getElettori()</span> della
+classe Elezione che restituisce una collezione. E' possibile accedere
+ad un particolare elettore tramite il metodo <span
+ style="font-weight: bold;">getElettore()</span> che riceve
+come parametri nome e cognome e restituisce un Cittadino.<br>
+<h2>R2 - Liste
+</h2>
+Le liste elettorali sono composte da un certo numero di cittadini. Un
+cittadino &egrave; il candidato capolista e altri cittadini sono
+candidati della lista.
+<br>
+Le liste sono rappresentate dalla classe <span
+ style="font-weight: bold;">Lista </span>il cui costruttore riceve il
+nome della lista ed il motto. Tali valori sono accessibili tramite i
+metodi <span style="font-weight: bold;">getNome()</span> e <span
+ style="font-weight: bold;">getMotto()</span>.<br>
+Per assegnare il capolista si utilizza il metodo <span
+ style="font-weight: bold;">assegnaCapolista()</span> che riceve come
+parametro un oggetto Cittadino. L'interfaccia <span
+ style="font-weight: bold;"></span>Cittadino, offre il metodo <span
+ style="font-weight: bold;">isCapolista()</span> che restituisce true
+se il candidato &egrave; capolista.<br>
+Per aggiungere candidati ad una lista si usa il metodo <span
+ style="font-weight: bold;">aggiungiCandidato() </span>del tutto
+simile al precedente. Il metodo <span style="font-weight: bold;">isCandidato()</span>
+dell'interfaccia Cittadino
+restituisce true se il cittadino &egrave; candidato o capolista.<br>
+Ogni cittadino pu&ograve; essere Candidato per una sola lista,
+altrimenti i metodi assegnaCapolista() e aggiungiCandidato() lanciano
+un eccezione di <span style="font-weight: bold;">CandidatoNonValido</span>.<br>
+E' possibile sapere chie &egrave; il capolista tramite il metodo <span
+ style="font-weight: bold;">getCapolista()</span>, mentre i candidati
+sono noti tramite il metodo <span style="font-weight: bold;">getCandidati()</span>
+che restituisce una collezione di oggetti che implementano
+l'interfaccia Cittadino.<br>
+Quando una lista &egrave; completa &egrave; possibile registrarla
+tramite il metodo <span style="font-weight: bold;">registraLista()</span>
+della classe Elezione. Si assuma che i nomi delle liste siano unici.<br>
+<h2>R3 - Votazione
+</h2>
+Dopo la registrazione delle liste &egrave; possibile procedere con la
+votazione vera e propria.<br>
+Ogni cittadino pu&ograve; esprimere un voto per una lista e per un
+candidato tramite i metodi <span style="font-weight: bold;">vota()</span>
+della classe Elezione. La prima versione di questo metodo permette di
+votare per una lista e di esprimere una preferenza per un candidato
+specificando il nome della lista e nome e cognome del candidato. La
+seconda versione permette di assegnare solo il voto di lista, in questo
+caso il voto di preferenza viene automaticamente assegnato al capolista.<br>
+Ogni cittadino pu&ograve; votare una sola volta altrimenti i metodi
+vota() restituiscono un eccezione di <span style="font-weight: bold;">TentatoDoppioVoto</span>.<br>
+Se si cerca di esprimere un voto di preferenza per un candidato che non
+appartiene alla lista votata ("taglio") viene segnalata un'eccezione di
+<span style="font-weight: bold;">TaglioNonPermesso</span>.<br>
+<h2>R4 - Risultati
+</h2>
+Dopo le votazione &egrave; possibile conoscere i risultati.<br>
+Il metodo <span style="font-weight: bold;">getNumeroVotanti()</span>
+della classe Elezione restituisce il numero di cittadini votanti.<br>
+Il metodo <span style="font-weight: bold;">getRisultatiListe()</span>
+restituisce la collezione delle liste, ordinata per numero di voti
+decrescenti. Per sapere il numero di voti di una lista &egrave;
+possibile utilizzare il metodo <span style="font-weight: bold;">getNumeroVoti()</span>
+della classe Lista. E' possibile sapere la percentuale di voti tramite
+il metodo <span style="font-weight: bold;">getPercentualeVoti()</span>.<br>
+Il metodo <span style="font-weight: bold;">getRisultatiCandidati()</span>
+restituisce la collezione dei candidati, ordinata per numero
+decrescente di voti. Per sapere il numero di voti di un candicato si
+usa il
+metodo <span style="font-weight: bold;">getNumeroVoti()</span>
+dell'interfaccia Cittadino.&nbsp;
+<br>
+<h2>R5 - GUI definizione liste
+</h2>
+Scrivere la gestione degli eventi ed il caricamento dei dati per la
+seguente interfaccia grafica che permette la definizione delle liste.<br>
+L'interfaccia &egrave; implementata dalla classe GuiCreaListe, il cui
+costruttore riceve come parametro un oggetto Elezione da cui preleva le
+informazioni sui cittadini e sulle liste.<br>
+La lista a sinistra contiene tutti i cittadini, quella a destra le
+liste
+(eventualmente) gi&agrave; registrate.<br>
+E' possibile registrare una lista inserendo nome e motto e premendo il
+pulsante "Registra".<br>
+Selezionando un cittadino ed una lista &egrave; possibile definire il
+capo lista oppure aggiungere un candidato alla lista usando i pulsanti
+"Capo Lista" e "Candidato" rispettivamente.<br>
+<span style="font-weight: bold;">Suggerimento</span>: il metodo <span
+ style="font-weight: bold;">getSelectedValue()</span> di <span
+ style="font-weight: bold;">JList</span> permette di recuperare
+l'oggetto inserito nella lista.<br>
+<br>
+<img style="width: 476px; height: 222px;" alt="" src="Finestra.jpg"><br>
+<br>
+<hr style="width: 100%; height: 2px;"><br>
+<span style="font-weight: bold;"></span>
+</body>
+</html>

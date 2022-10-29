@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>Requisiti</title>
+<link href=".css.css" rel="stylesheet" type="text/css">
+<style>
+@media print {  /* adjusted to print the html to a single-page pdf */
+/*
+body {
+	font-size: 8pt;
+}
+h1 {
+	line-height: 90%;
+}
+h2 {
+	font-size: 115%;
+	margin: 0pt;
+	line-height: 85%;
+}
+}
+*/
+</style>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>Car Sharing</h1>
+
+<p>Si sviluppi un programma che permetta di gestire servizi di Car Sharing. </p>
+
+<p>Tutte le classi devono essere sviluppate nel package <b>carShare</b>.
+In caso di errore i metodi lanciano un'eccezione di  <b>InvalidName</b>.
+
+La classe <b>MainClass</b> nel package <b>main</b> presenta esempi di uso dei metodi principali.</p>
+
+<p>
+&Egrave; disponibile la <a href="http://softeng.polito.it/courses/docs/api/index.html" target="api" target="_blank">JDK documentation</a>.
+</p>
+
+
+
+<h2>R1: Car Service</h2>
+
+<p>La classe <b>CarService</b> rappresenta un gestore di servizi di noleggio di automobili condivise.
+
+Per accedere al servizio &egrave; necessario sottoscrivere un abbonamento.
+
+Le automobili possono essere prelevate e consegnate solamente nei parcheggi facenti capo al servizio. </p>
+
+<p>Il metodo <b>addParking()</b> permette di aggiungere un parcheggio al servizio, 
+	e riceve come argomento il nome di tale parcheggio; se il nome &egrave; gi&agrave; presente 
+	nell'elenco dei parcheggi, solleva l'eccezione <i>InvalidName</i>. </p>
+
+<p>Il metodo <b>addCar()</b> permette di aggiungere un'automobile al servizio, e riceve 
+come argomenti: il nome del parcheggio in cui l'auto viene inserita, la sigla della targa, la tariffa 
+per ogni minuto di noleggio, la tariffa per ogni chilometro percorso; se il nome del parcheggio non &egrave; 
+presente nel servizio, o se la targa &egrave; gi&agrave; presente, solleva l'eccezione <i>InvalidName</i>.</p>
+
+<p>Il metodo <b>getAvailableCars()</b> riceve come argomento il nome di un parcheggio e 
+restituisce l'elenco delle targhe delle automobili disponibili (non prenotate) ivi presenti, in ordine 
+alfabetico crescente; se il nome del parcheggio non &egrave; presente nel servizio, solleva l'eccezione 
+<i>InvalidName</i>.</p>
+
+<p>Il metodo <b>addSubscriber()</b> permette di aggiungere un abbonato al servizio, e riceve 
+come argomento il codice della carta di credito sulla quale verranno addebitati i costi di noleggio; se il 
+codice &egrave; gi&agrave; presente nell'elenco degli abbonati, solleva l'eccezione <i>InvalidName</i>.</p>
+
+<p>Il metodo <b>getSubscribers()</b> restituisce una lista contenente i codici, in 
+ordine alfabetico crescente, delle carte di credito degli abbonati.</p>
+
+
+
+<h2>R2: Prenotazioni</h2>
+
+<p>Per noleggiare un'automobile &egrave; necessario che l'abbonato effettui una prenotazione mediante 
+il metodo <b>reserve()</b>, che riceve come argomenti il codice della carta di credito dell'abbonato 
+e il nome del parcheggio da cui questi vuole partire; se il codice della carta o il nome del parcheggio 
+non sono presenti nei rispettivi elenchi, solleva l'eccezione <i>InvalidName</i>; il metodo prenota a nome 
+dell'abbonato l'automobile disponibile (non prenotata) nel parcheggio avente la prima targa in ordine alfabetico, 
+e restituisce la targa dell'auto prenotata; se non ci sono automobili disponibili, o se l'abbonato aveva gi&agrave; 
+una prenotazione, restituisce <i>null</i>; (un abbonato non pu&ograve; prenotare pi&ugrave; di una auto per volta).</p> 
+
+
+<p> Il metodo <b>getReserved()</b> riceve come argomento il nome di un parcheggio, e restituisce l'elenco, 
+in ordine alfabetico crescente, delle targhe delle automobili prenotate presenti nel parcheggio stesso; 
+se il nome del parcheggio non &egrave; presente nel servizio, solleva l'eccezione <i>InvalidName</i>.</p>
+
+<p> Il metodo <b>release()</b> permette di annullare una prenotazione, e riceve come argomenti il codice 
+della carta di credito di un abbonato e la sigla di una targa; se il codice della carta o la sigla della 
+targa non sono presenti nei rispettivi elenchi, solleva l'eccezione <i>InvalidName</i>; il metodo controlla 
+che l'auto sia stata effettivamente prenotata a nome dell'abbonato indicato, ed in tal caso annulla la 
+prenotazione restituendo la targa dell'auto, altrimenti termina restituendo <i>null</i>.</p>
+
+
+
+<h2>R3: Prelievi e Riconsegne</h2>
+
+<p>Il metodo <b>useCar()</b> permette ad un abbonato di prelevare l'auto prenotata, e riceve 
+come argomenti il codice della carta di credito dell'abbonato e la targa dell'auto; se il codice della 
+carta o la sigla della targa non sono presenti nei rispettivi elenchi, solleva l'eccezione <i>InvalidName</i>; 
+il metodo controlla che l'auto sia stata effettivamente prenotata a nome dell'abbonato indicato, ed in 
+tal caso consegna l'auto all'abbonato (facendola uscire dal parcheggio), e restituisce la sigla della targa; 
+in caso contrario termina restituendo <i>null</i>.</p> 
+
+<p>Il metodo <b>terminate()</b> permette ad un abbonato di terminare un noleggio, e riceve come argomenti: 
+il codice della carta di credito dell'abbonato, la targa dell'auto usata, il nome del parcheggio in cui 
+viene riconsegnata l'auto, la durata in minuti del noleggio, il numero di chilometri percorsi; se il codice 
+della carta o il nome del parcheggio non sono presenti nei rispettivi elenchi, solleva l'eccezione <i>InvalidName</i>; 
+il metodo controlla che l'auto sia stata effettivamente usata dall'abbonato indicato, e se cos&igrave; 
+non &egrave; termina restituendo <i>null</i>, altrimenti:</p>
+<ul>
+<li> cancella la prenotazione</li> 
+<li> inserisce l'auto nel parcheggio indicato </li>
+
+<li> calcola l'importo da addebitare, sommando il costo della durata (minuti moltiplicati per tariffa temporale) e 
+quello dei chilometri percorsi (chilometri moltiplicati per tariffa chilometrica)</li>
+
+<li> restituisce una nota di addebito costituita da una stringa contenente i seguenti cinque elementi: 
+codice della carta di credito, targa dell'auto, importo addebitato, parcheggio di partenza, parcheggio 
+di arrivo, separati dal carattere <i>':'</i> </li>
+
+<p><em>Esempio</em>:<i>Y456:A3:45.6:PortaNuova:PortaSusa</i></p> 
+
+</ul>
+
+
+
+<h2>R4: Reports</h2>
+
+<p>I seguenti metodi della classe <b>CarService</b> restituiscono informazioni riassuntive 
+in merito al servizio:</p>
+<ul> 
+<li><b>charges()</b> restituisce l'elenco di tutte le note di addebito emesse tramite il 
+metodo <b>terminate()</b>, ordinate per valori decrescenti dei relativi importi.</li>
+
+<li><b>subscriberCharges()</b> restituisce l'elenco delle note di addebito relative ad un 
+dato abbonato, nell'ordine in cui sono state emesse; il metodo riceve come argomento il codice 
+della carta di credito dell'abbonato, e se il codice non &egrave; presente nell'elenco degli 
+abbonati, solleva l'eccezione <i>InvalidName</i>.</li> 
+
+<li><b>averageCharge()</b> restituisce il valore medio di tutti gli importi addebitati.</li>
+
+<li><b>departuresFrom()</b> restituisce il numero totale degli addebiti con partenza da un dato parcheggio; 
+il metodo riceve come argomento il nome del parcheggio, e se questo non &egrave; presente nel 
+relativo elenco, solleva l'eccezione <i>InvalidName</i>. </li>
+
+</ul>
+
+
+</body>
+</html>

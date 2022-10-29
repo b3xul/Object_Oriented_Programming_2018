@@ -1,0 +1,13 @@
+__MACOSX/
+*.settings/
+*_sol/
+*.metadata
+*.recommenders
+*svn*
+*.classpath
+*.project
+*.class
+*.zip
+*.jar
+*.rar
+*.htm

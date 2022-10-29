@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Requisiti</title>
+	<link href=".css.css" rel="stylesheet" type="text/css">
+	<script src=".js.js"></script>
+</head>
+
+<body>
+<h1 >
+<span class="it">Gestione Code Sportelli</span>
+<span class="en">Office Queue Management</span>
+</h1>
+
+<p class="it">Sviluppare un sistema che permetta di gestire le code presso enti che forniscono 
+servizi di sportello ai cittadini (ad es. le poste).
+In uno stesso ufficio diversi sportelli possono rispondere a diversi tipi di richieste
+(ad es. spedizioni o gestione conti correnti).  
+</p> 
+<p class="en">Develop a system to manage the queues at public authorities that provide services 
+to the public (e.g., post offices). In the same office, various counters can handle different 
+types of requests (e.g., shipping or accounts management).
+</p>
+
+
+<p class="en">All classes must reside in the package named <b>it.polito.oop.office</b>.</p>
+<p class="it">Tutte le classi devono trovarsi nel package <b>it.polito.oop.office</b>.</p>
+
+<p class="en">The class named <b>Example</b> in package <b>main</b> contains examples using the main methods.</p>
+<p class="it">La classe <b>Example</b> nel package <b>main</b> contiene esempi di uso del metodi principali.</p>
+
+<p class="en">
+Students are free to access the <a href="https://oop.polito.it/api" target="api" target="_blank">JDK documentation</a>.
+</p>
+<p class="it">
+È possibile accedere liberamente alla 
+<a href="https://oop.polito.it/api" target="api" target="_blank">Documentazione JDK</a>.
+</p>
+
+
+<section class="en">
+<h2>R1: Requests and Counters</h2>
+
+<p>
+The facade class of the system is <b>OfficeQueueManager</b>, which allows performing all the operations.
+<p>
+Counters handle different types of requests, which can be defined by calling the <b>addRequestType(String , int )</b> method. 
+This method receives two parameters: a tag that identifies the request type and an estimate of the time needed to process the 
+request (known as <span style="font-style: italic;">service time</i>).
+<p>
+The list of the request types is obtained by calling the <b>getRequestTypes()</b> method, which returns the list of tags 
+of the available request types.
+<p>
+Offices offer different counters that can be defined through the <b>addCounter(String , String [])</b> method. 
+This method receives as parameters a unique identifier and the list of request types that the counter can handle.
+<p>
+The <b>getCounters()</b> returns all the counters already defined and the <b>getCounters(String)</b> method only returns 
+the counters that are able to process the specific requests type passed as parameter. Both methods return a list 
+of counter identifiers.
+
+</section>
+
+<section class="it" lang="it">
+<h2>R1: Richieste e Sportelli</h2>
+
+La classe principale di facciata del sistema è <b>OfficeQueueManager</b>, tramite essa vengono svolte tutte le operazioni.
+
+<p>Gli sportelli possono rispondere a diversi tipi di richieste, che possono essere definite
+tramite il metodo <b>addRequestType(String , int )</b> il quale riceve come parametri 
+un'etichetta per il tipo di richiesta e una stima del tempo richiesto per evadere la richiesta (detto tempo di servizio).
+</p>
+<p>&Egrave; possibile ottenere l'insieme dei tipi di richieste definiti tramite il metodo <b>getRequestTypes()</b>
+che restituisce l'insieme delle etichette dei tipi definiti.
+</p> 
+<p>
+Un ufficio offre diversi sportelli che possono essere definiti tramite il metodo
+<b>addCounter(String , String ... )</b> che riceve come parametri un identificatore
+univoco e l'insieme dei tipi di richiesta che &egrave; in grado di evadere.
+</p>
+<p>
+&Egrave; possibile conoscere l'insieme degli sportelli definiti tramite il metodo
+<b>getCounters()</b> e sapere quali sportelli sono in grado di evadere un dato tipo
+di richiesta tramite il metodo <b>getCounters(String)</b>.
+Entrambi i metodi restituiscono un insieme di identificatori di sportello.
+</section>
+
+
+
+
+<section class="en">
+<h2>R2: Tickets</h2>
+
+<p>
+Citizens that have a request that the office has to handle, specify the request type and receive a ticket with a number. 
+Tickets are requested by calling the <b>openTicket(String)</b> method, which receives as parameter the request type and returns 
+the ticket number. Ticket numbers are unique for the system: the first ticket will receive the number 1, 
+the next ones are increased by 1. The number will be used to call citizens to the correct counter.
+<p>
+If the request type is not recognized, i.e., is not in the list of the previously specified ones, 
+an exception of type <b>QueueException</b> is raised.
+<p>
+The system maintains different queues for each request type. The number of persons waiting for each request type 
+is obtained by calling the <b>queueLengths()</b> method, which returns a map that associates each request type with 
+the number of waiting people.
+
+
+</section>
+
+<section class="it">
+<h2>R2: Biglietti</h2>
+
+<p>Quando un cittadino ha una richiesta da evadere presso l'ufficio, può
+prendere un biglietto con un numero specificando il tipo di richiesta.
+Il biglietto può essere richiesto tramite il metodo <b>openTicket(String)</b>
+che riceve come parametro il tipo di richiesta e restituisce un numero di biglietto.
+I biglietti sono univoci per il gestore, il primo biglietto avr&agrave; come numero 1 ed i 
+successivi sono incrementati di 1.
+Il numero verrà usato poi per chiamare il cittadino allo sportello corretto.
+</p>
+<p>
+Se il tipo di richiesta non è uno di quelli predefiniti viene generata un'eccezione
+di tipo <b>QueueException</b>.
+<p>
+Il sistema mantiene delle code separate per ciascun tipo di richiesta ed è possibile
+conoscere il numero di persone in attesa per ciascun tipo di richiesta
+tramite il metodo  <b>queueLengths()</b> che restituisce una mappa che 
+associa ad ogni tipo di richiesta il numero di persone in coda.
+</p>
+</section>
+
+
+
+
+<section class="en">
+<h2 >R3: Counter Operation</h2>
+
+<p>
+When an operator at a counter is ready, he calls the next citizen by invoking the <b>serveNext(String)</b> method. 
+This method receives as parameter a counter identifier and returns the ticket number that will be handled by the counter.
+<p>
+The next ticket to serve is selected with the following criterion: select the first number from the 
+longest queue the counter can manage (remember, counters can only manage specific request types). 
+If two queues have the same length, the queue associated with request type having the lowest service time is selected.
+<p>
+If all the queues the counter can manage are empty, the method returns 0 (zero).
+<p>
+Selected tickets are considered served and removed from their queue (which is therefore shortened).
+
+
+</section>
+
+<section class="it">
+<h2 >R3: Operatività degli Sportelli</h2>
+
+<p>
+Quando l'operatore ad uno sportello è pronto, può chiamare il prossimo cliente.
+Questo avviene tramite il metodo <b>serveNext(String)</b> che riceve come
+parametro l'identificatore dello sportello e restituisce il numero del ticket
+che verrà evaso dallo sportello.</p>
+<p>
+Il criterio con cui sono selezionati i ticket da evadere prevede che,
+tra le code di ticket corrispondenti ai tipi di richieste gestite dallo sportello,
+sia selezionato il primo ticket dalla coda più lunga.
+In caso di parità si seleziona quella il cui tipo di richiesta ha un tempo
+stimato di evasione minore.
+</p>
+<p>Se tutte le code per le tipologie gestite dallo sportello sono vuote
+il metodo restituisce il valore <i>0</i> (zero).</p>
+<p>Quando un ticket viene selezionato, esso viene rimosso dalla rispettiva
+coda (che quindi si accorcia) e viene considerato come evaso.</p>  
+
+</section>
+
+
+
+
+<section class="en">
+<h2>R4: Message Notification</h2>
+
+The system sends notifications concerning the length of the queues and the tickets called at the counters.
+Notification recipients must implement the QueueListener interface and must be registered through the 
+<b>addQueueListener(QueueListener)</b> method. 
+This method receives a new listener and adds it to an internal list, which will be used to send notifications.
+When a new ticket is opened (with the <i>openTicket()</i> method) one queue changes, therefore, the following actions must be performed:
+<ul>
+<li> notify all the registered recipients that one of the queue lengths has changed by calling their 
+     <b>queueUpdate(String,long)</b> method. This method accepts as parameters the request type and the new queue length.
+</ul>
+Each time a new ticket is served (with the <i>serveNext()</i> method) the following actions must be performed:
+<ul>
+<li>	notify that a new ticket number has been served by calling the <b>callTicket(int,String)</b> method, 
+		which receives the selected ticket number and the counter identifier;
+<li>	notify that the length of the queue associated with the type of served ticket has been shortened by calling 
+		the <i>queueUpdate(String , long )</i> method.
+</ul>
+
+<h3>Hints</h3>
+<ul class="hint">
+<li> QueueListeners  must not be implemented. The main package contains a sample class that 
+     may used to understand how <i>QueueListeners</i> work.
+<li> To fulfill this requirement, just implement the <i>addQueueListener(QueueListener)</i>.
+     Of course, you may also need to add some functionality to previously described methods.
+</ul>
+</section>
+
+<section class="it">
+<h2>R4: Notifica di Messaggi</h2>
+
+<p>
+Il sistema di gestione invia delle notifiche che riguardano la
+lunghezza delle code e la chiamata dei biglietti presso gli sportelli.</p>
+<p>
+I ricevitori di tali notifiche devono implementare l'interfaccia <b>QueueListener</b>
+ed essere registrati tramite il metodo <b>addQueueListener(QueueListener)</b>;
+questo metodo riceve un nuovo listener e lo aggiunge ad una lista interna
+che verr&agrave; usata per mandare le notifiche a tutti.</p>
+<p>
+Ogni volta che un nuovo biglietto viene emesso (tramite il metodo <i>openTicket()</i>)
+cambia una lista di attesa e quindi occorre notificare a tutti i ricevitori registrati che è variata la lunghezza di una delle code di attesa,
+invocando il loro metodo <b>queueUpdate(String,long)</b> che accetta come parametri
+il tipo di richiesta e la nuova lunghezza della coda.
+</p>
+<p>
+Ogni volta che viene servito un nuovo numero di biglietto (tramite il metodo <i>serveNext()</i>)
+occorre:
+<ul>
+    <li>notificare che un nuovo numero di biglietto viene servito chiamando 
+    	il metodo <b>callTicket(int,String)</b> passando il numero del ticket selezionato
+    	e l'identificatore dello sportello,
+      <li>notificare che la lunghezza della coda del tipo del biglietto servito
+      	  è stata ridotta chiamando il metodo <i>queueUpdate(String, long)</i>.
+</ul>
+<h3>Suggerimenti</h3>
+<ul class="hint">
+<li>L'interfaccia <i>QueueListener</i> non deve essere implementata. Nel package <i>main</i>
+    viene fornita un'implementazione di esempio per poter osservare il funzionamento.
+<li>Questo requisito non richiede di implementari altri metodi oltre a 
+    <i>addQueueListener(QueueListener)</i>; si tratta di aggiungere delle funzionalità
+    a metodi già descritti nei requisiti precedenti.
+</ul>
+</p>
+
+</section>
+
+
+<section class="en">
+<h2>R5: Stats</h2>
+
+<p>
+The <b>estimatedWaitingTime(int)</b> method returns an estimate (minimum) of the waiting time for the 
+holder of a given ticket number. This method receives as parameter the ticket number and returns the waiting time.
+<p>
+The waiting time is evaluated by multiplying the number of tickets that precede the given ticket 
+(in the queue associated with the ticket's request type) by the service time (of that request type), 
+and then dividing the result by the number of counters that can handle that request type. 
+The result of the previous computation is then further incremented by half of the service time.
+<p>
+The <b>servedByType()</b> method can be called to know how many clients have been served for each request type; 
+it returns a map that associates each request type with the number of served tickets 
+(i.e. the ones selected by the serveNext() method).
+<p>
+The <b>servedByCounter()</b> method returns the number of clients each counter has served, further categorized for request type. 
+This method returns a map that associates the counter identifier with another map, 
+which associates each request type with the number of tickets of such type the counter has served.
+
+
+</section>
+
+<section class="it">
+<h2>R5: Statistiche</h2>
+
+<p>
+&Egrave; possibile ottenere una stima del tempo (minimo) di attesa
+per il possessore di un numero di biglietto tramite il metodo 
+<b>estimatedWaitingTime(int)</b> che riceve come parametro il numero di biglietto
+e restituisce il tempo di attesa.</p>
+<p>Il tempo di attesa è calcolato moltiplicando il numero di biglietti che precedono
+quello considerato nella lista del proprio tipo per il tempo di servizio e poi
+dividendo per il numero di sportelli che gestiscono il tipo di richiesta del
+biglietto considerato. Questo tempo poi viene ulteriormente incrementato della metà 
+del tempo di servizio.
+</p>
+<p>
+Per conoscere quanti clienti sono stati serviti per tipo di richiesta è possibile
+utilizzare il metodo <b>servedByType()</b> che restituisce una mappa che associa
+ad ogni tipo di richiesta il numero di biglietti evasi (ovvero quelli che sono stati selezionati
+tramite il metodo <i>serveNext()</i>.
+</p>
+<p>
+Il numero di clienti serviti da ciascuno sportello, ulteriormente divisi per tipo di richiesta
+è disponibile tramite il metodo <b>servedByCounter()</b> che restituisce una mappa che
+associa al codice di ogni sportello una mappa che associa al tipo di richiesta il numero di 
+biglietti di quel tipo evasi dallo sportello.
+</p>
+</section>
+
+</body>
+
+</html>
+

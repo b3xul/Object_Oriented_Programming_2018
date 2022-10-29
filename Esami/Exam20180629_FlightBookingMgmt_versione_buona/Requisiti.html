@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+
+
+
+<title>Gestione di prenotazioni di voli</title>
+<link href=".css.css" rel="stylesheet" type="text/css">
+<style>
+@media print {  /* adjusted to print the html to a single-page pdf */
+body {
+	font-size: 10pt;
+}
+</style>
+</head>
+<body>
+
+
+<h1>Gestione di prenotazioni di voli</h1>
+<p>
+
+Si scriva un programma per la gestione di prenotazioni di voli. Le classi si trovano nel package <b>flightBookings</b>; 
+la classe principale è <b>FBookingMgr</b>. La classe <b>Example</b> nel package <b>main</b> presenta esempi di uso dei metodi principali 
+ed esempi dei controlli richiesti. Si implementino soltanto i controlli richiesti.
+Le eccezioni sono di tipo <b>FBMException</b>.<br>
+
+<p>
+La <a href="https://oop.polito.it/api/" target="api" target="_blank">JDK documentation</a>  si trova sul server locale.
+</p>
+
+<h2>R1: Tariffe, destinazioni e voli</h2>
+Il metodo <b> addFareTypes(String... names) </b> aggiunge i tipi di tariffe dei posti sui voli. Lancia un'eccezione se è chiamato più di una volta. <br>
+
+Il metodo <b> List &lt;String&gt; addFlightsForDestination(String destName, String... flightIds) </b> aggiunge una destinazione e i voli corrispondenti indicati con i loro identificativi. Se un volo compare più volte nella lista corrente o è già stato inserito in una chiamata precedente, è ignorato. Il risultato è la lista ordinata degli identificativi dei voli inseriti. <br>
+
+<h2>R2: Richieste e offerte</h2>
+Il metodo <b> addOffer(String offerId, String flightId, int nSeats, String fareTypeName, int price) </b> aggiunge un'offerta: l'offerta ha un identificativo e indica il volo, il numero di posti disponibili, il tipo di tariffa e il prezzo di un biglietto. Lancia un'eccezione se il volo o il tipo di tariffa non sono definiti. <br>
+
+Il metodo <b> addRequest(String requestId, String destName, String fareTypeName, int maxPrice, int nSeats) </b> aggiunge una richiesta: la richiesta ha un identificativo e indica la destinazione, il tipo di tariffa, il prezzo massimo per un biglietto e il n. di posti richiesti. Lancia un'eccezione se la destinazione o il tipo di tariffa non sono definiti. <br>
+
+Il metodo <b> int getNRequests(String destination) </b> dà il numero di richieste per la destinazione data. <br>
+
+Il metodo <b> int getNOffers(String destination) </b> dà il numero di offerte relative ai voli per la destinazione data. <br>
+
+<h2>R3: Prenotazioni</h2>
+
+Il metodo <b> addBooking(String bookingId, String requestId, String offerId) </b> 
+aggiunge una prenotazione relativa ad una richiesta e ad un'offerta; la prenotazione ha un identificativo. 
+Lancia un'eccezione se: la destinazione del volo è diversa da quella della richiesta, 
+il tipo di tariffa dell'offerta è diverso da quello della richiesta, 
+il n. di posti richiesti è maggiore di quelli ancora disponibili, 
+il prezzo massimo della richiesta è inferiore al prezzo dell'offerta. 
+Se la prenotazione è corretta, il numero di posti disponibili dell'offerta è diminuito del n. di posti richiesti. <br>
+
+Il metodo <b> int getTotalPrice(String bookingId) </b> dà il prezzo totale della prenotazione indicata, 
+calcolato come il prodotto del numero di posti richiesti per il prezzo dell'offerta. 
+Lancia un'eccezione se la prenotazione non è definita. <br>
+
+<h2>R4: Statistiche</h2>
+Il metodo <b> SortedMap &lt;Integer, List &lt;String&gt;&gt; destinationsPerNSeats() </b> 
+dà la lista ordinata delle destinazioni che hanno lo stesso numero di posti richiesti; 
+i numeri di posti sono ordinati in senso decrescente e sono ottenuti 
+sommando il numero di posti delle richieste relative alla stessa destinazione. <br>
+
+Il metodo <b> SortedMap &lt;String, Integer&gt; revenuesPerFareType() </b> dà il ricavo per tipo di tariffa, 
+con i tipi di tariffa ordinati. 
+Il ricavo si ottiene sommando per ogni prenotazione relativa allo stesso tipo di tariffa 
+il prodotto del numero di posti della richiesta per il prezzo dell'offerta. <br>
+
+
+
+</body>
+</html>

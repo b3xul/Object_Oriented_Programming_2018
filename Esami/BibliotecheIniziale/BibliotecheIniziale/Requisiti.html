@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="it">
+<head>
+<title>Requisiti</title>
+</head>
+<body>
+<h1 style="text-align: center;">Biblioteche</h1>
+Sviluppare un'applicazione che consenta di gestire un insieme di biblioteche.
+<br>Utilizzare la classe<b> MainClass</b>  del package<b> </b><code><b>EsempioMain</b></code><b> </b>per la verifica.
+
+Tutte le classi  sviluppate devono essere nel package <b></b><code><b>Library</b></code><b>.
+
+
+</b><h2>R1. Biblioteche e Libri</h2>
+
+Le biblioteche sono rappresentate dalla classe <b>Biblioteca</b>, il cui costruttore riceve come argomento il nome della biblioteca.<br>
+I libri sono rappresentati dalla classe <b>Libro</b>, il cui costruttore riceve i seguenti argomenti: nomi degli autori, titolo, editore, codice ISBN.
+<br>Il metodo <b>toString()</b> della classe <b>Libro</b> restituisce una stringa contenente la sequenza di tali argomenti separati da spazi.<br>
+La classe <b>Biblioteca</b></span> permette di aggiungere un libro all'elenco dei libri in  dotazione, tramite il metodo <b>addLibro()</b>.<br> Se il codice ISBN del libro &egrave;
+gi&agrave; presente nell'elenco, viene sollevata l'eccezione <b>InvalidIsbn</b>.
+<br>Il metodo <b>getLibro()</b> riceve un codice ISBN e restituisce il libro corrispondente.<br>
+Il metodo <b>libriPerAutore()</b> della classe <b>Biblioteca</b> restituisce una lista contenente tutti i libri in dotazione, ordinata alfabeticamente secondo i nomi degli  autori.
+<br><h2>R2. Utenti</h2>
+
+Gli utenti delle biblioteche sono rappresentati dalla classe <b>Utente</b>, il cui costruttore
+riceve i seguenti argomenti: codice, nome, cognome.
+<br>Il metodo <b>toString()</b>  della classe <b>Utente </b>restituisce una stringa contenente la sequenza di tali argomenti separati da spazi.<br>
+La classe <b>Biblioteca</b><span></span> permette di aggiungere un utente all'elenco dei suoi utenti, tramite il metodo <b>addUtente()</b>.<br> Se il codice  dell'utente &egrave;
+gi&agrave; presente nell'elenco, viene sollevata l'eccezione <b>InvalidCode</b>.
+<br>
+Il metodo <b>utenti()</b> della classe <b>Biblioteca</b> restituisce una lista contenente tutti gli utenti di una biblioteca, ordinata per valori crescenti del loro codice.<br><h2>R3. Prestiti</h2>
+
+Il metodo <b>prestito()</b> della  classe <b>Biblioteca</b>  permette ad un utente di richiedere un libro in prestito, e  riceve come argomenti un codice utente ed un codice ISBN.<br>Se il codice  dell'utente   non &egrave;
+ presente nell'elenco degli utenti della biblioteca, viene sollevata l'eccezione <b>InvalidCode</b>.<br> Se il codice ISBN del libro non &egrave; presente nell'elenco dei libri in dotazione alla biblioteca, viene sollevata l'eccezione <b>InvalidIsbn</b>.<br>Se il libro  richiesto non è attualmente in prestito, viene assegnato in prestito al richiedente e restituito come risultato del metodo <b>prestito()</b>.<br>Se il libro  richiesto è già in prestito al richiedente, la richiesta viene ignorata ed il metodo restituisce il valore<b> null</b>.<br>Se il libro  richiesto è  attualmente  in prestito ad un utente diverso dal richiedente, il richiedente viene inserito  al fondo di una coda di richieste da evadere, ed il metodo restituisce il valore <b>null</b>.<br>Il metodo <b>prestiti()</b> della classe <b>Utente</b> restituisce  una lista contenente tutti i libri in prestito ad un utente, ordinata alfabeticamente secondo i nomi degli  autori.<br>Il metodo <b>getRichieste()</b> della classe <b>Biblioteca</b> riceve come argomento un libro e restituisce la coda contenente tutti gli utenti in attesa di quel libro.<br><h2>R4. Restituzioni</h2>
+
+Il metodo <b>restituzione()</b> della  classe <b>Biblioteca</b>  permette ad un utente di restituire un libro  attualmente in prestito, e  riceve come argomenti un codice utente ed un codice ISBN.<br>Se il codice  dell'utente   non &egrave;
+ presente nell'elenco degli utenti della biblioteca, viene sollevata l'eccezione <b>InvalidCode</b>.<br> Se il codice ISBN del libro non &egrave; presente nell'elenco dei libri in dotazione alla biblioteca, viene sollevata l'eccezione <b>InvalidIsbn</b>.<br>Se il libro  indicato non è attualmente in prestito all'utente indicato, il metodo restituisce il valore<b> null</b>, altrimenti restituisce il libro indicato.<br>Se per il libro ci sono richieste di prestito inevase, il libro viene assegnato in prestito all'utente in cima alla coda.<br><h2>R5. Elenchi</h2>
+
+La classe <b>Biblioteca</b> fornisce i seguenti ulteriori metodi:
+<ul>
+<li> <b>elencoPrestiti()</b> restituisce  una lista contenente tutti i libri attualmente in prestito, ordinata alfabeticamente secondo i nomi degli  autori.<li> <b>elencoRichieste()</b>
+
+            restituisce  una lista contenente tutti i libri per i quali esistono richieste di prestito inevase, ordinata alfabeticamente secondo i nomi degli  autori.<br></ul>
+<hr style="width: 100%; height: 2px;"><br>
+
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+
+<title>Flight bookings management</title>
+<link href=".css.css" rel="stylesheet" type="text/css">
+
+
+<style>
+@media print {  /* adjusted to print the html to a single-page pdf */
+body {
+	font-size: 10pt;
+}
+</style>
+
+</head>
+<body>
+
+
+
+<h1>Flight bookings management</h1>
+<p>
+
+Write a program to manage flight bookings. Classes are located in the <b>flightBookings</b> package; 
+the main class is <b>FBookingMgr</b>. The <b>Example</b> class in the <b>main</b> package shows usage examples for the main methods
+and examples of the requested checks. Only implement the requested checks.
+Exceptions thrown by the methods described below are of <b>FBMException</b> type.<br>
+
+<p>
+The <a href="https://oop.polito.it/api/" rel="noopener" target="api">JDK documentation</a> is located on the local server.
+</p>
+
+<h2>R1: Fares, destinations and flights</h2>
+The <b> addFareTypes(String... names) </b> method adds types of fares for the flights' seats. The method throws an exception if it is called more than one time. <br>
+
+The <b> List&lt;String&gt; addFlightsForDestination(String destName, String... flightIds) </b> method adds a destination and the related flights identified by their ids.
+If a flight is present more than one time in the current list, or if it has been added in a previous call to the method, the flight is ignored. The method returns the ordered list of the flights' ids.<br>
+
+<h2>R2: Requests and offers</h2>
+The <b> addOffer(String offerId, String flightId, int nSeats, String fareTypeName, int price) </b> method adds an offer: the latter has an id and states the flight, the number of available seats, the fare's type and the price of a ticket per person. The method throws an exception if a flight with the given id or a fare's type with the given name have not been defined before. <br>
+
+The <b> addRequest(String requestId, String destName, String fareTypeName, int maxPrice, int nSeats) </b> method adds a request: the latter has an id and states the destination, the fare's type, the maximum price of a ticket per person and the number of requested seats. The method throws an exception if a destination or a fare's type with the given names have not been defined before. <br>
+
+The <b> int getNRequests(String destination) </b> method returns the total number of requests for the given destination. <br>
+
+The method <b> int getNOffers(String destination) </b> returns the total number of offers for the given destination. <br>
+
+<h2>R3: Bookings</h2>
+
+The <b> addBooking(String bookingId, String requestId, String offerId) </b> 
+method adds a booking related to a request and an offer; each booking has an id. 
+The method throws an exception if: the flight destination in the offer is different from the one stated in the request,
+the fare's type in the offer is different from the one stated in the request,
+more seats than still available are requested,
+the maximum price stated in the request is lower than the one in the offer.
+If the booking is correct, the number of offered seats is lowered by the number of seats requested in the booking. <br>
+
+The <b> int getTotalPrice(String bookingId) </b> method returns the total price of the given booking,
+evaluated multiplying the number of requested seats by the offer's price per seat. 
+The method throws an exception if a booking with the given id has not been defined before. <br>
+
+<h2>R4: Statistics</h2>
+The <b> SortedMap&lt;Integer, List&lt;String&gt;&gt; destinationsPerNSeats() </b> 
+method returns the ordered lists of destinations with the same number of requested seats; 
+the seats' numbers are ordered decreasing and are obtained 
+summing the number of seats of all the requests related to the same destination. <br>
+
+The <b> SortedMap&lt;String, Integer&gt; revenuesPerFareType() </b> method returns the revenues by fare's type, ordered by name of fare's type.
+Revenues are evaluated summing, for each booking related to the same fare's type, the number of requested seats times the price per seat stated in the offer. <br>
+
+
+
+</body>
+</html>
